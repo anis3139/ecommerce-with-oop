@@ -30,4 +30,10 @@ class Category {
             }
         }
     }
+    public function getAllCat(){
+    $query= "SELECT * FROM tbl_category order by catId desc";
+    $result= $this->db->insert($query);
+
+    return $result;
+    }
 }
