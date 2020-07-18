@@ -2,8 +2,8 @@
 <?php include "../lib/Session.php";
 
 Session::checkLogin();
-include "../lib/Database.php";
-include "../helpers/format.php";
+include_once "../lib/Database.php";
+include_once "../helpers/format.php";
 
 ?>
 
