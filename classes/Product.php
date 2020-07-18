@@ -51,7 +51,7 @@ class Product {
             move_uploaded_file($file_temp, $uploaded_image);
             $query = "INSERT INTO tbl_product(productName, brandId, catId, body, price, image, type)
              VALUES('$productName','$brandId', '$catId', '$body',' $price', '$uploaded_image', '$type')";
-            $inserted_rows =  $this->db ->insert($query);
+            $inserted_rows = $this->db->insert($query);
             if ($inserted_rows) {
                 echo "<span class='success'>Image Inserted Successfully.
                 </span>";
@@ -60,6 +60,38 @@ class Product {
             }
         }
     }
+
+    public function productList() {
+        $query = "SELECT tbl_product.*, tbl_category.catName, tbl_brand.brandName
+        FROM tbl_product
+        INNER JOIN tbl_category
+        ON tbl_product.catId= tbl_category.catId 
+        INNER JOIN tbl_brand
+        on tbl_product.brandID= tbl_brand.brandId
+        order by tbl_product.productId desc";
+        $result = $this->db->insert($query);
+        return $result;
+    }
+
+
+    public function getProductById($id){
+        $query = "SELECT * FROM tbl_product where productId = '$id' ";
+        $result = $this->db->insert($query);
+        return $result;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 ?>
