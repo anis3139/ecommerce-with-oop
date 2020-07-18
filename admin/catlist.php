@@ -4,12 +4,21 @@
 
 <?php
 $cat = new Category();
+if(isset($_GET['delCat'])){
+	$id=$_GET['delCat'];
+	$delCat=$cat->delCatById($id);
+}
 ?>
 
 
         <div class="grid_10">
             <div class="box round first grid">
 				<h2>Category List</h2>
+				<?php
+				if(isset($delCat)){
+					echo $delCat;
+				}
+				?>
                 <div class="block">
                     <table class="data display datatable" id="example">
 					<thead>
@@ -27,14 +36,14 @@ if ($getCat):
     while ($result = $getCat->fetch_assoc()):
         $i++;
         ?>
-																	<tbody>
-																		<tr class="odd gradeX">
-																			<td><?php echo $i; ?></td>
-																			<td><?php echo $result['catName']; ?></td>
-																			<td><a href="catedit.php?catid=<?php echo $result['catId']; ?>">Edit</a> || <a onclick="return confirm('Are you sure?')" href="catdel.php?catdel=<?php echo $result['catId']; ?>">Delete</a></td>
-																		</tr>
-																	</tbody>
-																	<?php
+					<tbody>
+						<tr class="odd gradeX">
+							<td><?php echo $i; ?></td>
+							<td><?php echo $result['catName']; ?></td>
+							<td><a href="catedit.php?catid=<?php echo $result['catId']; ?>">Edit</a> || <a onclick="return confirm('Are you sure?')" href="?delCat=<?php echo $result['catId']; ?>">Delete</a></td>
+						</tr>
+					</tbody>
+					<?php
 
     endwhile;
 endif;
