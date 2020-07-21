@@ -9,10 +9,22 @@ $pl = new Product();
 $getProductList = $pl->productList();
 ?>
 
+<?php
+if(isset($_GET['delpro'])){
+	$id=$_GET['delpro'];
+	$delPro=$pl->delProById($id);
+}
+?>
+
 <div class="grid_10">
     <div class="box round first grid">
         <h2>Post List</h2>
         <div class="block">
+		<?php
+				if(isset($delPro)){
+					echo $delPro;
+				}
+				?>
             <table class="data display datatable" id="example">
 			<thead>
 				<tr>
@@ -29,6 +41,7 @@ $getProductList = $pl->productList();
 			</thead>
 			<tbody>
 				<?php
+				$fm=new format();
 if ($getProductList):
     $i = 0;
     while ($result = $getProductList->fetch_assoc()):
@@ -39,7 +52,7 @@ if ($getProductList):
 																					<td><?php echo $result['productName']; ?></td>
 																					<td><?php echo $result['catName']; ?></td>
 																					<td><?php echo $result['brandName']; ?></td>
-																					<td><?php echo $result['body']; ?></td>
+																					<td><?php echo $fm->textShorten($result['body'], 200); ?></td>
 																					<td><?php echo $result['price']; ?></td>
 																					<td>
 																					<img src="<?php echo $result['image']; ?>" width="100px" height="auto" alt="">

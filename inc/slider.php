@@ -1,48 +1,80 @@
 <div class="header_bottom">
 		<div class="header_bottom_left">
 			<div class="section group">
+				<?php 
+				$getlaptop= $pd->getLatestlaptop();
+				if($getlaptop){
+					while($result=$getlaptop->fetch_assoc()){
+				
+				?>
 				<div class="listview_1_of_2 images_1_of_2">
 					<div class="listimg listimg_2_of_1">
-						 <a href="preview.html"> <img src="images/pic4.png" alt="" /></a>
+						 <a href="preview.php?proid=<?php echo $result['productId']; ?>"> <img src="admin/<?php echo $result['image'];?>" alt="" /></a>
 					</div>
 				    <div class="text list_2_of_1">
-						<h2>Iphone</h2>
-						<p>Lorem ipsum dolor sit amet sed do eiusmod.</p>
-						<div class="button"><span><a href="preview.html">Add to cart</a></span></div>
+						<h2>Laptop</h2>
+						<p><?php echo $result['productName'];?></p>
+						<div class="button"><span><a href="preview.php?proid=<?php echo $result['productId']; ?>">Add to cart</a></span></div>
 				   </div>
-			   </div>			
+			   </div>	
+					<?php }}?>
+
+				
+				<?php 
+				$getdesktop= $pd->getLatestDesktop();
+				if($getdesktop){
+					while($result=$getdesktop->fetch_assoc()){
+				
+				?>
 				<div class="listview_1_of_2 images_1_of_2">
 					<div class="listimg listimg_2_of_1">
-						  <a href="preview.html"><img src="images/pic3.png" alt="" / ></a>
+						 <a href="preview.php?proid=<?php echo $result['productId']; ?>"> <img src="admin/<?php echo $result['image'];?>" alt="" /></a>
 					</div>
-					<div class="text list_2_of_1">
-						  <h2>Samsung</h2>
-						  <p>Lorem ipsum dolor sit amet, sed do eiusmod.</p>
-						  <div class="button"><span><a href="preview.html">Add to cart</a></span></div>
-					</div>
-				</div>
+				    <div class="text list_2_of_1">
+						<h2>Desktop</h2>
+						<p><?php echo $result['productName'];?></p>
+						<div class="button"><span><a href="preview.php?proid=<?php echo $result['productId']; ?>">Add to cart</a></span></div>
+				   </div>
+			   </div>	
+					<?php }}?>	
+
+				
 			</div>
 			<div class="section group">
+			<?php 
+				$getTablet= $pd->getLatestTablet();
+				if($getTablet){
+					while($result=$getTablet->fetch_assoc()){
+				
+				?>
 				<div class="listview_1_of_2 images_1_of_2">
 					<div class="listimg listimg_2_of_1">
-						 <a href="preview.html"> <img src="images/pic3.jpg" alt="" /></a>
+						 <a href="preview.php?proid=<?php echo $result['productId']; ?>"> <img src="admin/<?php echo $result['image'];?>" alt="" /></a>
 					</div>
 				    <div class="text list_2_of_1">
-						<h2>Acer</h2>
-						<p>Lorem ipsum dolor sit amet, sed do eiusmod.</p>
-						<div class="button"><span><a href="preview.html">Add to cart</a></span></div>
+						<h2>Tablet</h2>
+						<p><?php echo $result['productName'];?></p>
+						<div class="button"><span><a href="preview.php?proid=<?php echo $result['productId']; ?>">Add to cart</a></span></div>
 				   </div>
-			   </div>			
+			   </div>	
+					<?php }}?>
+					<?php 
+				$getMobile= $pd->getLatestMobile();
+				if($getMobile){
+					while($result=$getMobile->fetch_assoc()){
+				
+				?>
 				<div class="listview_1_of_2 images_1_of_2">
 					<div class="listimg listimg_2_of_1">
-						  <a href="preview.html"><img src="images/pic1.png" alt="" /></a>
+						 <a href="preview.php?proid=<?php echo $result['productId']; ?>"> <img src="admin/<?php echo $result['image'];?>" alt="" /></a>
 					</div>
-					<div class="text list_2_of_1">
-						  <h2>Canon</h2>
-						  <p>Lorem ipsum dolor sit amet, sed do eiusmod.</p>
-						  <div class="button"><span><a href="preview.html">Add to cart</a></span></div>
-					</div>
-				</div>
+				    <div class="text list_2_of_1">
+						<h2>Mobile</h2>
+						<p><?php echo $result['productName'];?></p>
+						<div class="button"><span><a href="preview.php?proid=<?php echo $result['productId']; ?>">Add to cart</a></span></div>
+				   </div>
+			   </div>	
+					<?php }}?>
 			</div>
 		  <div class="clear"></div>
 		</div>

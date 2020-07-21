@@ -1,80 +1,98 @@
-<?php include("inc/header.php")?>
+<?php include "inc/header.php"?>
+<?php
+$login=Session::get("custlogin"); 
+if($login== true){
+	header("Location:order.php");
+}
 
+?>
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+    $custLogin = $cmr->customerLogin($_POST);
+}
+?>
 
  <div class="main">
     <div class="content">
     	 <div class="login_panel">
+		 <?php
+if (isset($custLogin)) {
+    echo $custLogin;
+}
+
+?>
         	<h3>Existing Customers</h3>
         	<p>Sign in with the form below.</p>
-        	<form action="hello" method="get" id="member">
-                	<input name="Domain" type="text" value="Username" class="field" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}">
-                    <input name="Domain" type="password" value="Password" class="field" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
+        	<form action="" method="post" id="member">
+                	<input name="email" type="email" placeholder="E mail">
+					<input name="pass" type="password" placeholder="Password">
+					<div class="buttons"><div><button class="grey" name="login">Sign In</button></div></div>
+					</div>
+
                  </form>
-                 <p class="note">If you forgot your passoword just enter your email and click <a href="#">here</a></p>
-                    <div class="buttons"><div><button class="grey">Sign In</button></div></div>
-                    </div>
+                
+					<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
+    $customerResigtation = $cmr->customerRegistration($_POST);
+}
+?>
+
     	<div class="register_account">
+		<?php
+if (isset($customerResigtation)) {
+    echo $customerResigtation;
+}
+
+?>
     		<h3>Register New Account</h3>
-    		<form>
+    		<form action="" method="post">
 		   			 <table>
 		   				<tbody>
 						<tr>
 						<td>
 							<div>
-							<input type="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" >
+							<input type="text" name="name" placeholder="Name"/>
+							</div>
+
+							<div>
+							   <input type="text"  name="city" placeholder="City" />
+							</div>
+							<div>
+							   <input type="text" name="address" placeholder="address" />
+							</div>
+
+							<div>
+								<input type="text" name="zip" placeholder="Zip-Code" />
 							</div>
 							
-							<div>
-							   <input type="text" value="City" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'City';}">
-							</div>
-							
-							<div>
-								<input type="text" value="Zip-Code" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Zip-Code';}">
-							</div>
-							<div>
-								<input type="text" value="E-Mail" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-Mail';}">
-							</div>
 		    			 </td>
 		    			<td>
-						<div>
-							<input type="text" value="Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Address';}">
-						</div>
-		    		<div>
-						<select id="country" name="country" onchange="change_country(this.value)" class="frm-field required">
-							<option value="null">Select a Country</option>         
-							<option value="AF">Afghanistan</option>
-							<option value="AL">Albania</option>
-							<option value="DZ">Algeria</option>
-							<option value="AR">Argentina</option>
-							<option value="AM">Armenia</option>
-							<option value="AW">Aruba</option>
-							<option value="AU">Australia</option>
-							<option value="AT">Austria</option>
-							<option value="AZ">Azerbaijan</option>
-							<option value="BS">Bahamas</option>
-							<option value="BH">Bahrain</option>
-							<option value="BD">Bangladesh</option>
+							
+							<div>
+									<input type="text" name="email" placeholder="Email" />
+							</div>
+							<div>
+									<input type="text" name="country" placeholder="country" />
+							</div>
 
-		         </select>
-				 </div>		        
-	
-		           <div>
-		          <input type="text" value="Phone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Phone';}">
-		          </div>
-				  
-				  <div>
-					<input type="text" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
-				</div>
-		    	</td>
-		    </tr> 
-		    </tbody></table> 
-		   <div class="search"><div><button class="grey">Create Account</button></div></div>
-		    <p class="terms">By clicking 'Create Account' you agree to the <a href="#">Terms &amp; Conditions</a>.</p>
-		    <div class="clear"></div>
+		           			<div>
+		         				 <input type="text" name="phone" placeholder="Phone">
+		         			 </div>
+
+				  			<div>
+								<input type="password" name="pass" placeholder="Password">
+							</div>
+		    			</td>
+		    </tr>
+			</tbody>
+		</table>
+		   <div class="search"><div><button class="grey" name="register">Create Account</button></div></div>
+
+		   
 		    </form>
-    	</div>  	
+    	</div>
        <div class="clear"></div>
     </div>
  </div>
 </div>
-<?php include("inc/footer.php")?>
+<?php include "inc/footer.php"?>

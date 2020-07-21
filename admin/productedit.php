@@ -20,14 +20,13 @@ if (!isset($_GET['proedit']) || $_GET['proedit'] == NULL) {
 <?php
 $pd = new Product();
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-    $productName = $_POST['productName'];
     $updateProduct = $pd->productUpdate($_POST, $_FILES, $id);
 }
 ?>
 
 <div class="grid_10">
     <div class="box round first grid">
-        <h2>Add New Product</h2>
+        <h2>Update Product</h2>
         <div class="block">
 <?php
 if (isset($updateProduct)) {
@@ -38,40 +37,41 @@ if (isset($updateProduct)) {
 <?php
 $getproduct = $pd->getProductById($id);
 if ($getproduct):
-    while ($result = $getproduct->fetch_assoc()):
+    while ($value = $getproduct->fetch_assoc()):
     ?>
-					         <form action="" method="post" enctype="multipart/form-data">
-					            <table class="form">
+										         <form action="" method="post" enctype="multipart/form-data">
+										            <table class="form">
 
-					                <tr>
-					                    <td>
-					                        <label>Name</label>
-					                    </td>
-					                    <td>
-					                        <input type="text" name="productName" value="<?php echo $result['productName']; ?>" class="medium" />
-					                    </td>
-					                </tr>
-									<tr>
-					                    <td>
-					                        <label>Category</label>
-					                    </td>
-					                    <td>
-			                                <select id="select" name="catId">
-					                            <option>Select Category</option>
-					                            <?php
+										                <tr>
+										                    <td>
+										                        <label>Name</label>
+										                    </td>
+										                    <td>
+										                        <input type="text" name="productName" value="<?php echo $value['productName']; ?>" class="medium" />
+										                    </td>
+										                </tr>
+														<tr>
+										                    <td>
+										                        <label>Category</label>
+										                    </td>
+										                    <td>
+								                                <select id="select" name="catId">
+										                            <option>Select Category</option>
+										                            <?php
 
     $getcat = $cat->getAllCat();
     if ($getcat):
         while ($result = $getcat->fetch_assoc()):
 
         ?>
-														                            <option  <?php
-        if ($result['catId'] == $result['catId']) {
+											 <option  <?php
+        if ($value['catId'] == $result['catId']) {
             echo "selected";
         }
 
-        ?> value="<?php echo $result['catId'] ?>"><?php echo $result['catName'] ?></option>
-														                                <?php
+        ?> value="<?php echo $result['catId']; ?>"><?php echo $result['catName']; ?>
+										        </option>
+																								                                <?php
     endwhile;
 endif;
 ?>
@@ -91,15 +91,14 @@ endif;
 $getbrand = $brand->getAllBrand();
 if ($getbrand):
     while ($result = $getbrand->fetch_assoc()):
-
     ?>
-								                            <option <?php
-        if ($result['brandId'] == $result['brandId']) {
-            echo "selected";
-        }
+													                            <option <?php
+    if ($value['brandId'] == $result['brandId']) {
+        echo "selected";
+    }
 
-        ?> value="<?php echo $result['brandId'] ?>"><?php echo $result['brandName'] ?></option>
-								                           <?php
+    ?> value="<?php echo $result['brandId']; ?>"><?php echo $result['brandName']; ?></option>
+													                           <?php
 endwhile;
 endif;
 ?>
@@ -112,7 +111,7 @@ endif;
                         <label>Description</label>
                     </td>
                     <td>
-                        <textarea class="tinymce" name="body"><?php echo $result['body']; ?></textarea>
+                        <textarea class="tinymce" name="body"><?php echo $value['body']; ?></textarea>
                     </td>
                 </tr>
 				<tr>
@@ -120,7 +119,7 @@ endif;
                         <label>Price</label>
                     </td>
                     <td>
-                        <input type="text" name="price" value="<?php echo $result['price']; ?>" class="medium" />
+                        <input type="text" name="price" value="<?php echo $value['price']; ?>" class="medium" />
                     </td>
                 </tr>
 
@@ -129,7 +128,7 @@ endif;
                         <label>Upload Image</label>
                     </td>
                     <td>
-                   <img src="<?php echo $result['image']; ?>" alt=""><br/>
+                   <img src="<?php echo $value['image'];  ?>" width="200px" height="auto" alt=""><br/>
                         <input type="file" name="image" />
                     </td>
                 </tr>
@@ -141,13 +140,13 @@ endif;
                     <td>
                         <select id="select" name="type">
                             <option>Select Type</option>
-                            <?php 
-                           if($result['type'] == 0){
-                            ?>
+                            <?php
+if ($value['type'] == 0) {
+    ?>
                             <option selected="selected" value="0">Featured</option>
                             <option value="1">Non-Featured</option>
-                     <?php   }else{?>
-                        
+                     <?php } else {?>
+
                         <option selected="selected" value="1">Non-Featured</option>
                         <option value="0">Featured</option>
                      <?php }?>
@@ -158,12 +157,12 @@ endif;
 				<tr>
                     <td></td>
                     <td>
-                        <input type="submit" name="submit" Value="Save" />
+                        <input type="submit" name="submit" Value="Update" />
                     </td>
                 </tr>
             </table>
             </form>
-<?php endwhile;endif;?>
+<?php endwhile; endif; ?>
         </div>
     </div>
 </div>

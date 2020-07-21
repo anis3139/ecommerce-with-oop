@@ -1,3 +1,33 @@
+<?php 
+//include "/lib/Session.php";
+
+$filepath = realpath(dirname(__FILE__));
+include_once ($filepath."/../lib/Session.php");
+Session::init();
+include_once "lib/Database.php";
+include_once "helpers/format.php";
+spl_autoload_register(function($class){
+	include_once "classes/".$class.".php";
+});
+
+
+$db= new Database();
+$fm= new Format();
+$pd=new Product();
+$cat=new Category();
+$ct= new Cart();
+$cmr= new Customer();
+
+
+?>
+
+<?php
+  header("Cache-Control: no-cache, must-revalidate");
+  header("Pragma: no-cache"); 
+  header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); 
+  header("Cache-Control: max-age=2592000");
+?>
+
 <!DOCTYPE HTML>
 <head>
 <title>Store Website</title>
@@ -36,11 +66,40 @@
 					<div class="cart">
 						<a href="#" title="View my shopping cart" rel="nofollow">
 								<span class="cart_title">Cart</span>
-								<span class="no_product">(empty)</span>
+								<span class="no_product">
+							<?php 
+								$cartData= $ct->getCartData();
+								if($cartData){
+								$sum=Session::get("sum");
+								echo $sum." tk";
+							}else{
+								echo "(Empty)";
+							}
+								?>
+								</span>
 							</a>
 						</div>
-			      </div>
-		   <div class="login"><a href="login.php">Login</a></div>
+				  </div>
+				  
+<?php 
+if(isset($_GET['cid'])){
+	$delData=$ct->delCustomerCart();
+ Session::destroy();
+}
+?>
+		   <div class="login">
+		   <?php
+$login=Session::get("custlogin"); 
+if($login== false){ ?>
+ <a href="login.php">Login</a></div>
+
+<?php }else{?>
+ <a href="?cid= Session::get('cmrId');">Logout</a></div>
+<?php
+}
+
+?>
+		 
 		 <div class="clear"></div>
 	 </div>
 	 <div class="clear"></div>
@@ -50,7 +109,17 @@
 	  <li><a href="index.php">Home</a></li>
 	  <li><a href="products.php">Products</a> </li>
 	  <li><a href="topbrands.php">Top Brands</a></li>
+	  <?php 
+	 $chkCart= $ct->checkCart(); 
+	 if($chkCart){ ?>
 	  <li><a href="cart.php">Cart</a></li>
+	  <li><a href="payment.php">Payment</a></li>
+	 <?php } ?>
+	  <?php
+$login=Session::get("custlogin"); 
+if($login== true){ ?>
+	  <li><a href="profile.php">profile</a></li>
+<?php }?>
 	  <li><a href="contact.php">Contact</a> </li>
 	  <div class="clear"></div>
 	</ul>
